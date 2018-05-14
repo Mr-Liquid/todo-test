@@ -30,7 +30,7 @@ class NextCall extends Component {
      */
     getNextCall(){
         let callId = this.props.calls.byId.find(item => {
-            if(this.props.calls.byHash[item].time > moment().format('hh:mm')){
+            if(this.props.calls.byHash[item].time > moment().format('HH:mm')){
                 return item;
             }
         });
