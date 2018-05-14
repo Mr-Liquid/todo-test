@@ -165,7 +165,7 @@ class CallsList extends Component {
                 accessor: 'check',
                 sortable: false,
                 Cell: props => {
-                    let isDisabled = tableData.byHash[props.original].time < moment().format('hh:mm');
+                    let isDisabled = tableData.byHash[props.original].time < moment().format('HH:mm');
                     return(
                         <div>
                             <input type="checkbox" disabled={isDisabled}/>
