@@ -32,6 +32,10 @@ const styles = {
     }
 };
 
+/**
+ * Generates unique ID
+ * @returns {string}
+ */
 function uniqueId() {
     return 'id_' + Math.random().toString(36).substr(2, 16);
 }
@@ -51,6 +55,11 @@ class AddCall extends Component {
         this.addCallHandler = this.addCallHandler.bind(this);
     }
 
+    /**
+     * Shows error message text
+     * @param target
+     * @returns {string}
+     */
     errorMessage(target) {
         const found = this.state.errors.find((e) => {
             return e.target === target;
@@ -58,11 +67,19 @@ class AddCall extends Component {
         return found ? found.message : '';
     }
 
+    /**
+     * Removes error message text
+     * @param error
+     */
     removeError(error) {
         const remainingErrors = this.state.errors.filter((e) => e.target !== error.target);
         this.setState({errors: remainingErrors});
     }
 
+    /**
+     * Adds error message text
+     * @param error
+     */
     addError(error) {
         const i = this.state.errors.findIndex(e => e.target === error.target);
         if (i < 0) {
@@ -70,6 +87,13 @@ class AddCall extends Component {
         }
     }
 
+    /**
+     * Validates text input length
+     * @param target
+     * @param value
+     * @param required
+     * @returns {*}
+     */
     validateFixedLength(target, value, required) {
         if (value && value.length > required) {
             return {target: target, isValid: false, message: `String mustn't be more than ${required} characters`};
@@ -78,6 +102,12 @@ class AddCall extends Component {
         }
     }
 
+    /**
+     * Validates phone number value according to inner pattern
+     * @param target
+     * @param value
+     * @returns {*}
+     */
     validatePhoneNumber(target, value) {
         let pattern = /^(00|\+)\(?\d{3}\)?[- ]?\d{3}[ ]?\d{3}[ ]?\d{3}$/;
         if(value && pattern.test(value)){
@@ -87,6 +117,11 @@ class AddCall extends Component {
         }
     }
 
+    /**
+     * Formats phone number
+     * @param value
+     * @returns {string}
+     */
     formatPnoneNumber(value){
         let modifiedVal = value.replace(/^\+/g, '00').replace(/\D/g,''),
             length = modifiedVal.length,
@@ -111,6 +146,9 @@ class AddCall extends Component {
         return groups.join(' ');
     }
 
+    /**
+     * Adds call
+     */
     addCallHandler(){
         this.props.addCall(
             {
@@ -126,6 +164,11 @@ class AddCall extends Component {
             time: ''
         });
     }
+
+    /**
+     * Handles user input and run validators based on input name
+     * @param event
+     */
     handleChange(event){
         const target = event.target;
 
@@ -207,12 +250,23 @@ class AddCall extends Component {
         );
     }
 }
+
+/**
+ * Maps state to props
+ * @param state
+ * @returns {{calls: Function}}
+ */
 function mapStateToProps(state) {
     return {
         calls: state.calls
     };
 }
 
+/**
+ * Maps all dispatchers to props
+ * @param dispatch
+ * @returns {{addCall: addCall}|ActionCreator<any>|ActionCreatorsMapObject<any>}
+ */
 function matchDispatchToProps(dispatch) {
     return bindActionCreators(
         {

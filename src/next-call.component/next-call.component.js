@@ -24,6 +24,10 @@ class NextCall extends Component {
         super(props);
     }
 
+    /**
+     * Sets next call
+     * @returns {*}
+     */
     getNextCall(){
         let callId = this.props.calls.byId.find(item => {
             if(this.props.calls.byHash[item].time > moment().format('hh:mm')){
@@ -59,7 +63,11 @@ class NextCall extends Component {
     }
 }
 
-
+/**
+ * Maps state to props
+ * @param state
+ * @returns {{calls: Function}}
+ */
 function mapStateToProps(state) {
     return {
         calls: state.calls

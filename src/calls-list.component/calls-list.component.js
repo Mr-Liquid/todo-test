@@ -39,10 +39,18 @@ class CallsList extends Component {
         }
     }
 
+    /**
+     * Runs remove item via redux action
+     * @param itemId
+     */
     deleteItem(itemId){
         this.props.removeCall(itemId);
     }
 
+    /**
+     * Modifies shown date based on filters (all , next, finished)
+     * @param period
+     */
     dataModifier(period){
 
         const {calls} = this.props;
@@ -85,6 +93,10 @@ class CallsList extends Component {
         });
     }
 
+    /**
+     * Filters data using dataModifier function
+     * @param event
+     */
     filterData(event){
         const
             {target} = event,
@@ -183,12 +195,22 @@ class CallsList extends Component {
     }
 }
 
+/**
+ * Maps state to props
+ * @param state
+ * @returns {{calls: Function}}
+ */
 function mapStateToProps(state) {
     return {
         calls: state.calls
     };
 }
 
+/**
+ * Maps all dispatchers to props
+ * @param dispatch
+ * @returns {{addCall: addCall}|ActionCreator<any>|ActionCreatorsMapObject<any>}
+ */
 function matchDispatchToProps(dispatch) {
     return bindActionCreators(
         {
